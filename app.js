@@ -171,6 +171,14 @@ function switchView(viewId, title) {
     document.getElementById('view-title').textContent = title;
     
     document.querySelectorAll('.nav-links li').forEach(li => li.classList.remove('active'));
+
+    // Close mobile menu if open
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    if (sidebar && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    }
 }
 
 async function renderDashboard() {
@@ -471,6 +479,23 @@ document.getElementById('add-envelope-btn').addEventListener('click', () => {
         }
     });
 });
+
+// Mobile Menu Toggle
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+
+if (menuToggle && sidebar && sidebarOverlay) {
+    menuToggle.addEventListener('click', () => {
+        sidebar.classList.add('open');
+        sidebarOverlay.classList.add('active');
+    });
+
+    sidebarOverlay.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        sidebarOverlay.classList.remove('active');
+    });
+}
 
 // Start the app
 auth.init();

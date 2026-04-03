@@ -49,8 +49,11 @@
     </div>
 
     <div class="app-container hidden" id="main-app">
+        <!-- Sidebar Overlay (for mobile) -->
+        <div id="sidebar-overlay" class="sidebar-overlay"></div>
+
         <!-- Sidebar -->
-        <nav class="sidebar">
+        <nav class="sidebar" id="sidebar">
             <div class="logo">
                 <span class="logo-icon">💰</span>
                 <h1>EnviBudget</h1>
@@ -75,13 +78,21 @@
         <main class="main-content">
             <header class="top-bar">
                 <div class="header-left">
-                    <h2 id="view-title">Tableau de Bord</h2>
-                    <p id="current-month">Avril 2026</p>
+                    <button id="menu-toggle" class="menu-toggle" aria-label="Menu">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </button>
+                    <div>
+                        <h2 id="view-title">Tableau de Bord</h2>
+                        <p id="current-month">Avril 2026</p>
+                    </div>
                 </div>
                 <div class="header-right">
                     <button id="fast-transaction-btn" class="btn-primary">+ Nouvelle Dépense</button>
                 </div>
             </header>
+
 
             <section id="dashboard-view" class="view-section">
                 <div class="stats-grid">
