@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnviBudget | Gestion par Enveloppes</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="dark-mode">
+    <!-- Auth Overlay -->
+    <div id="auth-overlay" class="auth-overlay glass">
+        <div class="auth-card glass shadow">
+            <div class="logo" style="justify-content: center; margin-bottom: 2rem;">
+                <span class="logo-icon">💰</span>
+                <h1>EnviBudget</h1>
+            </div>
+            
+            <div id="auth-form-container">
+                <h2 id="auth-title">Connexion</h2>
+                <p id="auth-subtitle">Content de vous revoir !</p>
+                
+                <form id="auth-form" class="auth-form">
+                    <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="votre@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label for="password">Mot de passe</label>
+                        <input type="password" id="password" required placeholder="••••••••">
+                    </div>
+                    <button type="submit" id="auth-submit" class="btn-primary w-full">Se Connecter</button>
+                </form>
+                
+                <p class="auth-switch">
+                    Pas encore de compte ? <a href="#" id="switch-to-signup">S'inscrire</a>
+                </p>
+            </div>
+            <div id="auth-loading" class="hidden">
+                <div class="loader"></div>
+                <p>Connexion en cours...</p>
+            </div>
+            <div id="auth-message" class="auth-message hidden"></div>
+        </div>
+    </div>
+
+    <div class="app-container hidden" id="main-app">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo">
+                <span class="logo-icon">💰</span>
+                <h1>EnviBudget</h1>
+            </div>
+            <ul class="nav-links">
+                <li class="active" id="nav-dashboard">Tab. de Bord</li>
+                <li id="nav-envelopes">Mes Enveloppes</li>
+                <li id="nav-transactions">Transactions</li>
+                <li id="nav-reports">Rapports</li>
+                <li id="nav-logout" style="margin-top: auto; color: var(--danger);">Déconnexion</li>
+            </ul>
+            <div class="user-info">
+                <div class="income-badge">
+                    <span>Revenu : </span>
+                    <span id="monthly-income-display">0.00 €</span>
+                </div>
+                <button id="add-income-btn" class="btn-secondary">Gérer Revenu</button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="header-left">
+                    <h2 id="view-title">Tableau de Bord</h2>
+                    <p id="current-month">Avril 2026</p>
+                </div>
+                <div class="header-right">
+                    <button id="fast-transaction-btn" class="btn-primary">+ Nouvelle Dépense</button>
+                </div>
+            </header>
+
+            <section id="dashboard-view" class="view-section">
+                <div class="stats-grid">
+                    <div class="stat-card glass shadow">
+                        <h3>Total Alloué</h3>
+                        <p class="stat-value" id="total-allocated">0.00 €</p>
+                    </div>
+                    <div class="stat-card glass shadow">
+                        <h3>Total Dépensé</h3>
+                        <p class="stat-value text-danger" id="total-spent">0.00 €</p>
+                    </div>
+                    <div class="stat-card glass shadow">
+                        <h3>Reste à dépenser</h3>
+                        <p class="stat-value text-success" id="total-remaining">0.00 €</p>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h3>Mes Enveloppes Actives</h3>
+                    <button id="add-envelope-btn" class="btn-small">+ Créer</button>
+                </div>
+                
+                <div class="envelopes-grid" id="envelopes-container">
+                    <!-- Les enveloppes seront injectées ici par JS -->
+                </div>
+            </section>
+
+            <!-- Modals (Hidden by default) -->
+            <div id="modal-container" class="modal-overlay hidden">
+                <div class="modal-content glass">
+                    <h2 id="modal-title">Action</h2>
+                    <div id="modal-body"></div>
+                    <div class="modal-actions">
+                        <button id="modal-cancel" class="btn-text">Annuler</button>
+                        <button id="modal-confirm" class="btn-primary">Confirmer</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
